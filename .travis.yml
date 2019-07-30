@@ -1,0 +1,58 @@
+language: java
+matrix:
+  include:
+    - name: "Linux JDK8"
+      os: linux
+      dist: trusty
+      jdk:
+        - openjdk8
+      env:
+        - TRAVIS_DIST_NAME="trusty"
+    - name: "MacOS JDK8"
+      os: osx
+      osx_image: xcode9.3
+#    - name: "Windows" --- Not yet supported
+#      os: windows
+#      jdk:
+#        - openjdk8
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -f '/usr/local/include/c++'; brew install ant; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install ant -y; fi
+
+install:
+  - WD=$PWD
+  - cd ..
+  - git clone https://github.com/Funz/funz-profile
+  - cd $WD
+
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -f '/usr/local/include/c++'; brew install r; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9; fi
+  - if [[ "$TRAVIS_DIST_NAME" == "trusty" ]]; then echo "deb https://cloud.r-project.org/bin/linux/ubuntu trusty-cran35/" | sudo tee -a /etc/apt/sources.list; fi
+  - if [[ "$TRAVIS_DIST_NAME" == "xenial" ]]; then echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial/" | sudo tee -a /etc/apt/sources.list; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install r-recommended -y; fi
+
+script: 
+  - ant test
+
+before_deploy:
+  - ant clean dist
+  - cd dist; zip -r ../algorithm-Brent.zip *; cd ..
+  - ant install
+  - zip -r FunzR-Brent.zip FunzR-Brent
+  
+deploy:
+  provider: releases
+  api_key:
+    secure: cvI4MPWxHPORddkuBnFxwjEDY8asG2Iar26M/AC1Uu2gcXYr3aYplecUH20/cvBLP8YBaQwPzrNoiMV35DoovhG1FS0TKFj7cpSPvAh7RV6usPM5LM6nnzelyqXhPdEIsSbGk1TFUQgaw3vbiY/9jjI9GJWBaKYtC2BP7+R1oZ+zzo284fsA2/Kx7eLofB/JaciyIiuIIZOWh5Sy1tsJLSTDahZieBrt2zss8ymNiSE3iMfUc26wbJodwO4S7bausbMB95YPZ9EOJUjaxTuYm+uVXWRGtjKgyUPutq407sWcvuk1KAgwbvN9PNxAZfQksWguqPNPunsOup9CbhAQPZWI33AZFm52ag3v02LoALPzjbg53i49zs+arZELxFJMD4gody7NqZNJeMyHNZO6UdPbd7rg2/TSrz6rk0o6CNI1xDFT3ajoLZvxlKaDkk+YzSovU0DW86E84mHKF5AhyhqwPZRYtSQED+7l9zYv3HWDry1WKCpmn5qKYWNzDevIN6yIFwf42n5qlM/TwpM1tgXJtljOPoV20fxctjmpkHU6unam72fIgfzl+0/Ub4t1g5LAU5yOkRcZD7CQrSyBqttcdc8EISRykgAA4/kTzihJHhLID7D/bo2hv5o2LgFIU+kL047WaB50eykftgyqP0jS6RtUNMGAXIq9eEGWizw=
+  file_glob: true
+  file:
+    - FunzR-*.zip
+    - algorithm-*.zip
+  on:
+    tags: true
+    branch: master
+  skip_cleanup: true
+  overwrite: true
