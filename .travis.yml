@@ -30,8 +30,8 @@ before_script:
   - if [[ "$TRAVIS_DIST_NAME" == "trusty" ]]; then sudo add-apt-repository -s -y ppa:marutter/c2d4u; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install r-recommended pandoc --allow-unauthenticated -y; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update pandoc; fi
-  - R -e "install.packages(c('devtools','usethis'),repos = 'http://cran.us.r-project.org',lib.loc='lib')"
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install pandoc; fi
+  - R -e "install.packages(c('devtools','usethis'),repos = 'http://cran.us.r-project.org',lib='lib')"
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -f '/usr/local/include/c++'; brew install ant; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install ant -y; fi
   
