@@ -1,13 +1,12 @@
 <project name="algorithm-Brent" default="test" basedir=".">
 
     <property name="algorithm.name" value="Brent" />
+    <property name="install.dir" value="${basedir}/FunzR-${algorithm.name}" />
 
     <property name="funz.release" value="v1.9" />
 
     <property name="build_algorithm.xml" location="../funz-profile/build_algorithm.xml" />
     <import file="${build_algorithm.xml}"/>
-
-    <property file="${algorithm.name}.properties"/>
 	
     <target name="dist" depends="dist-algorithm"/> <!-- dist-ioplugin: copy just the plugin ascii files -->
 	        
