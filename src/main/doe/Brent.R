@@ -38,7 +38,7 @@ getInitialDesign <- function(brent, input, output) {
 getNextDesign <- function(brent, X, Y) {
     names(X) = names(brent$input)
     X = to01(X,brent$input)
-    Y = matrix(Y,ncol=1) - brent$ytarget
+    Y = as.matrix(Y,ncol=1) - brent$ytarget
 
     if (brent$i >= brent$max_iterations) {
         brent$exit <- 2
