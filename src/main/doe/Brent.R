@@ -137,8 +137,6 @@ getNextDesign <- function(brent, X, Y) {
 ## @param Y data frame of  results
 ## @return HTML string of analysis
 displayResults <- function(brent, X, Y) {
-    print(X)
-    print(Y)
     if (brent$exit == 1) {
         exit.txt = "root not bracketed"
     }else if (brent$exit == 2){
@@ -148,31 +146,25 @@ displayResults <- function(brent, X, Y) {
     }else{
         exit.txt = paste("error code", brent$exit)
     }
-    print(brent$files)
+
     brent$files <- paste("result", brent$i, ".png", sep = "")
     height <- 500
     width <- 500
 
-    print(X[,1])
-    print(Y)
     png(file = brent$files,        height = height,        width = width)
     plot(X[,1],Y,         pch = 20,         col = "grey70")
     #plot(as.matrix(X[3*i-1,1]),as.matrix(Y[3*i-1,1]),pch=20,col="grey70")
     abline(h = brent$ytarget,           lty = 2,           col = "grey70")
     dev.off()
-    print("dev.off")
 
     html <- paste0(' <HTML name="Root">in iteration number ',brent$i,'.<br/>',
             'the root approximation is ', X[3 * brent$i - 1, 1], '.<br/>',
             'corresponding to the value ', Y[3 * brent$i - 1, 1],'<br/>',
             '<img src="',  brent$files,  '" width="', width, '" height="', height, '"/>',
             '<br/>Exit due to ', exit.txt, '<br/></HTML>',collapse=';')
-print(html)
     
     arg <- paste0('<root>',X[3 * brent$i - 1, 1],'</root>',collapse=';')
     
-    print(arg)
-
     return(paste0(html,arg))
 }
 
