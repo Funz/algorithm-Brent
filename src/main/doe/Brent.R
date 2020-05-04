@@ -169,7 +169,9 @@ displayResults <- function(brent, X, Y) {
             '<br/>Exit due to ', exit.txt, '<br/></HTML>',collapse=';')
 print(html)
     
-    arg <- paste0('<root>',X[3 * brent$i - 1, 1],'</root>')
+    arg <- paste0('<root>',X[3 * brent$i - 1, 1],'</root>',collapse=';')
+    
+    print(arg)
 
     return(paste0(html,arg))
 }
