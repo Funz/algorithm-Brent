@@ -37,6 +37,9 @@ before_script:
   
 script: 
   - ant test
+  
+after_failure:
+  - for r in `ls *.Rmd`; do echo "########## "$r" ######################################################################"; cat $r; echo "################################################################################"; done
 
 before_deploy:
   - ant clean dist
