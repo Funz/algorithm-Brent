@@ -137,6 +137,8 @@ getNextDesign <- function(brent, X, Y) {
 ## @param Y data frame of  results
 ## @return HTML string of analysis
 displayResults <- function(brent, X, Y) {
+    print(X)
+    print(Y)
     if (brent$exit == 1) {
         exit.txt = "root not bracketed"
     }else if (brent$exit == 2){
