@@ -152,7 +152,7 @@ displayResults <- function(brent, X, Y) {
     width <- 500
 
     png(file = brent$files,        height = height,        width = width)
-    plot(X[,1],Y,         pch = 20,         col = "grey70")
+    plot(X[,1],Y[,1],         pch = 20,         col = "grey70")
     #plot(as.matrix(X[3*i-1,1]),as.matrix(Y[3*i-1,1]),pch=20,col="grey70")
     abline(h = brent$ytarget,           lty = 2,           col = "grey70")
     dev.off()
