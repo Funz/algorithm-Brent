@@ -29,7 +29,8 @@ getInitialDesign <- function(brent, input, output) {
 
     # Rescale xtol in [0,1]
     Xname = names(brent$input)[1]
-    xminptol = matrix(brent$input[[ Xname ]]$min + brent$xtol,ncol=1)
+    xminptol = brent$input[[ Xname ]]$min + brent$xtol
+    xminptol = matrix(c(xminptol),ncol=1)
     names(xminptol) <- Xname
     brent$xtol01 = to01(xminptol,brent$input) # Rescale xtol
 
