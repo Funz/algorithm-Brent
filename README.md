@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/Funz/algorithm-Brent.png)](https://travis-ci.org/Funz/algorithm-Brent)
+[![.github/workflows/ant.yml](https://github.com/Funz/algorithm-Brent/actions/workflows/ant.yml/badge.svg)](https://github.com/Funz/algorithm-Brent/actions/workflows/ant.yml)
+
 
 # Funz algorithm: Brent
 
