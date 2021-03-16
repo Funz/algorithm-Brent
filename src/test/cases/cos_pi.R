@@ -12,7 +12,7 @@ input.f = list(
     x=list(min=0,max=1)
 )
 output.f = "cos_pi"
-root.f = 0.5
+root.f = 0.6
 
 test = function(algorithm_file) {
     results = run.algorithm(algorithm_file, options=NULL,fun=list(input=input.f,output=output.f,fun=f))
