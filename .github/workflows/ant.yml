@@ -25,6 +25,7 @@ jobs:
         r-version: 3.6
     - if: matrix.os == 'macos-latest'
       run: ln -s /Library/Frameworks/R.framework/Versions/3.6 /Library/Frameworks/R.framework/Versions/3.5
+    - uses: r-lib/actions/setup-pandoc@v1
     - run: |
         WD=$PWD
         cd ..
