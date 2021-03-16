@@ -50,7 +50,7 @@ jobs:
         ant clean dist
         cd dist; zip -r ../algorithm-Brent.zip *; cd ..
         ant install
-        zip -r Funz-Brent.zip Funz-Brent
+        zip -r FunzR-Brent.zip FunzR-Brent
     - uses: actions/upload-artifact@v2
       with:
         path: dist
